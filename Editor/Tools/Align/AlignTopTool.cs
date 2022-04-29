@@ -4,36 +4,36 @@ using UnityEditor;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    public class AlignLeftTool : BaseTool
+    class AlignTopTool : LayoutBaseTool
     {
         public override void Init()
         {
-            icon = Resources.Load<Texture>("alignment_left");
+            icon = Resources.Load<Texture>("alignment_top");
+            undoName = "align top";
         }
 
-        protected override void Apply()
+        protected override async void Apply()
         {
-            var x = GetLeftX(indicator);
+            var y = GetTopY(indicator);
             foreach (var t in selecteds)
             {
                 var p = t.localPosition;
                 var s = GetSize(t);
-
-                t.localPosition = new Vector3(x + s.x * 0.5f, p.y, p.z);
+                t.localPosition = new Vector3(p.x, y - s.y * 0.5f, p.z);
             }
         }
 
         protected override RectTransform FilterIndicatorTransform()
         {
             var transform = selecteds[0];
-            var minx = GetLeftX(transform);
+            var maxy = GetTopY(transform);
             
             for (int i=1; i<selecteds.Count; i++)
             {
-                var x = GetLeftX(selecteds[i]);
-                if (x < minx)
+                var y = GetTopY(selecteds[i]);
+                if (y > maxy)
                 {
-                    minx = x;
+                    maxy = y;
                     transform = selecteds[i]; 
                 }
             }
@@ -41,10 +41,11 @@ namespace SimpleX.Client.Editor.UGUI
             return transform;
         }
 
-        private float GetLeftX(RectTransform transform)
+
+        private float GetTopY(RectTransform transform)
         {
-            var x = transform.localPosition.x - GetSize(transform).x * 0.5f;
-            return x;
+            var y = transform.localPosition.y + GetSize(transform).y * 0.5f;
+            return y;
         }
     }
 }

@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    class ResizeActualTool : BaseTool
+    class ResizeActualTool : LayoutBaseTool
     {
         public override void Init()
         {
             icon = Resources.Load<Texture>("resize_actual");
+            undoName = "same size";
         }
 
         protected override void Apply()

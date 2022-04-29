@@ -4,22 +4,23 @@ using UnityEditor;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    public class AlignCenterTool : BaseTool
+    class AlignMiddleTool : LayoutBaseTool
     {
         public override void Init()
         {
-            icon = Resources.Load<Texture>("alignment_center");
+            icon = Resources.Load<Texture>("alignment_middle");
+            undoName = "align middle";
         }
-        
+
         protected override void Apply()
         {
-            var x = indicator.localPosition.x;
+            var y = selecteds[0].localPosition.y;
             foreach (var t in selecteds)
             {
                 var p = t.localPosition;
                 var s = GetSize(t);
 
-                t.localPosition = new Vector3(x, p.y, p.z);
+                t.localPosition = new Vector3(p.x, y, p.z);
             }
         }
     }
