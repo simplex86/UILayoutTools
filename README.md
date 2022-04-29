@@ -1,5 +1,5 @@
 # UILayoutTools
-为UGUI提供布局工具，可轻松搞定对齐、同等尺寸、均匀分布等操作
+为UGUI提供布局工具，可轻松搞定**对齐、同等尺寸、均匀分布等**操作
 
 ![layout_toolbar](https://github.com/simplex86/UILayoutTools/blob/main/_Doc/Images/ugui_layout_toolbar.png)
 
@@ -19,3 +19,6 @@
 **垂直等边距**<br />
 **垂直等中心距**<br />
 **关闭工具栏**<br />
+
+### 注意
+整个工程由**Tools、UI和Resources目录**组成，下载工程后需要放在**Editor目录**下。
