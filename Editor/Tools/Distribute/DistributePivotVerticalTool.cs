@@ -4,18 +4,34 @@ using UnityEditor;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    class DistributePivotVerticalTool : BaseTool
+    class DistributePivotVerticalTool : DistributeBaseTool
     {
+        public DistributePivotVerticalTool()
+            : base(358)
+        {
+
+        }
+
         public override void Init()
         {
             icon = Resources.Load<Texture>("distribute_vertical_center");
+            undoName = "vertical evenly center";
         }
 
         protected override void Apply()
         {
-            PopupWindow.Show(new Rect(358, 34, 1, 1), new DistributePanel((interval) => {
-                Distribute(interval);
-            }));
+            var y = indicator.localPosition.y;
+
+            foreach (var t in selecteds)
+            {
+                if (t != indicator)
+                {
+                    y -= interval;
+
+                    var p = t.localPosition;
+                    t.localPosition = new Vector3(p.x, y, p.z);
+                }
+            }
         }
 
         protected override RectTransform FilterIndicatorTransform()
@@ -33,22 +49,6 @@ namespace SimpleX.Client.Editor.UGUI
             }
 
             return transform;
-        }
-
-        private void Distribute(float interval)
-        {
-            var y = indicator.localPosition.y;
-
-            foreach (var t in selecteds)
-            {
-                if (t != indicator)
-                {
-                    y -= interval;
-
-                    var p = t.localPosition;
-                    t.localPosition = new Vector3(p.x, y, p.z);
-                }
-            }
         }
     }
 }

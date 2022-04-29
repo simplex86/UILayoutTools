@@ -4,12 +4,13 @@ using UnityEditor;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    public abstract class BaseTool
+    abstract class LayoutBaseTool
     {
         public Texture icon { get; protected set; }
 
         protected List<RectTransform> selecteds { get; } = new List<RectTransform>();
         protected RectTransform indicator { get; private set; }
+        protected string undoName = string.Empty;
 
         protected const int BUTTON_WIDTH = 24;
         protected const int BUTTON_HEIGHT = 24;
@@ -23,7 +24,12 @@ namespace SimpleX.Client.Editor.UGUI
             if (GUILayout.Button(icon, GUILayout.Width(BUTTON_WIDTH), GUILayout.Height(BUTTON_HEIGHT)))
             {
                 FilterSelectedTransforms();
-                if (Check()) Apply();
+                if (Check())
+                {
+                    BeginUndo();
+                    Apply();
+                    EndUndo();
+                }
                 ClearSelectedTransforms();
             }
         }
@@ -34,11 +40,24 @@ namespace SimpleX.Client.Editor.UGUI
             return selecteds.Count > 1 && indicator != null;
         }
 
+        protected virtual void BeginUndo()
+        {
+            foreach (var o in selecteds)
+            {
+                Undo.RecordObject(o, undoName);
+            }
+        }
+
+        protected virtual void EndUndo()
+        {
+            // Undo.IncrementCurrentGroup();
+        }
+
         // 执行功能
         protected abstract void Apply();
 
         // 筛选被选中的RectTransform
-        private void FilterSelectedTransforms()
+        protected void FilterSelectedTransforms()
         {
             ClearSelectedTransforms();
 
@@ -54,7 +73,7 @@ namespace SimpleX.Client.Editor.UGUI
         }
 
         // 清除被选中的Transform数据
-        private void ClearSelectedTransforms()
+        protected void ClearSelectedTransforms()
         {
             indicator = null;
             selecteds.Clear();

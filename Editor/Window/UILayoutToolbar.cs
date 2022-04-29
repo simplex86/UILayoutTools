@@ -7,7 +7,7 @@ namespace SimpleX.Client.Editor.UGUI
 {
     class UILayoutToolbar
     {
-        private List<BaseTool> tools = new List<BaseTool>() {};
+        private List<LayoutBaseTool> tools = new List<LayoutBaseTool>() {};
         public Rect rect = new Rect(0, 24, 428, 34);
 
         public void Open()

@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    class ResizeHorizontalTool : BaseTool
+    class ResizeVerticalTool : LayoutBaseTool
     {
         public override void Init()
         {
-            icon = Resources.Load<Texture>("resize_horizontal");
+            icon = Resources.Load<Texture>("resize_vertical");
+            undoName = "same height";
         }
 
         protected override void Apply()
@@ -15,7 +16,7 @@ namespace SimpleX.Client.Editor.UGUI
             var size = GetSize(indicator);
             foreach (var t in selecteds)
             {
-                SetWidth(t, size.x);
+                SetHeight(t, size.y);
             }
         }
     }

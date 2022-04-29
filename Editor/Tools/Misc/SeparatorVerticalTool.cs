@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    class SeparatorHorizontalTool : BaseTool
+    class SeparatorVerticalTool : LayoutBaseTool
     {
         public override void Init()
         {
@@ -12,12 +12,22 @@ namespace SimpleX.Client.Editor.UGUI
 
         public override void OnGUI()
         {
-            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider, GUILayout.Width(BUTTON_WIDTH), GUILayout.Height(10));
+            EditorGUILayout.LabelField("", GUI.skin.verticalSlider, GUILayout.Width(10), GUILayout.Height(BUTTON_HEIGHT));
         }
 
         protected override bool Check()
         {
             return false;
+        }
+
+        protected virtual void BeginUndo()
+        {
+            
+        }
+
+        protected virtual void EndUndo()
+        {
+            
         }
 
         protected override void Apply()
