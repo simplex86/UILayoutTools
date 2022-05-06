@@ -15,23 +15,39 @@ namespace SimpleX.Client.Editor.UGUI
         }
 
         // 
-        public override void OnGUI()
+        protected override void OnClick()
         {
-            if (GUILayout.Button(icon, GUILayout.Width(BUTTON_WIDTH), GUILayout.Height(BUTTON_HEIGHT)))
+            FilterSelectedTransforms();
+            if (Check())
             {
-                FilterSelectedTransforms();
-                if (Check())
-                {
-                    PopupWindow.Show(new Rect(px, 34, 1, 1), new DistributePanel((interval) => {
-                        this.interval = interval;
-                        
-                        BeginUndo();
-                        Apply();
-                        EndUndo();
-                    }));
-                }
-                ClearSelectedTransforms();
+                PopupWindow.Show(new Rect(px, 34, 1, 1), new DistributePanel((interval) => {
+                    this.interval = interval;
+                    
+                    BeginUndo();
+                    Apply();
+                    EndUndo();
+                }));
             }
+            ClearSelectedTransforms();
+        }
+
+        protected void SetPosition(RectTransform transform, Vector3 pos)
+        {
+            transform.localPosition = pos;
+        }
+
+        protected void SetPositionX(RectTransform transform, float x)
+        {
+            var pos = transform.localPosition;
+            pos.x = x;
+            transform.localPosition = pos;
+        }
+
+        protected void SetPositionY(RectTransform transform, float y)
+        {
+            var pos = transform.localPosition;
+            pos.y = y;
+            transform.localPosition = pos;
         }
     }
 }

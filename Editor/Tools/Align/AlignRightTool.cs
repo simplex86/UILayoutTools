@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    class AlignRightTool : LayoutBaseTool
+    class AlignRightTool : AlignBaseTool
     {
         public override void Init()
         {
@@ -12,15 +12,14 @@ namespace SimpleX.Client.Editor.UGUI
             undoName = "align right";
         }
 
-        protected override void Apply()
+        protected override async void Apply()
         {
             var x = GetRightX(indicator);
             foreach (var t in selecteds)
             {
-                var p = t.localPosition;
+                var p = GetPosition(t);
                 var s = GetSize(t);
-
-                t.localPosition = new Vector3(x - s.x * 0.5f, p.y, p.z);
+                SetPositionX(t, x - s.x * 0.5f);
             }
         }
 
@@ -44,7 +43,7 @@ namespace SimpleX.Client.Editor.UGUI
 
         private float GetRightX(RectTransform transform)
         {
-            var x = transform.localPosition.x + GetSize(transform).x * 0.5f;
+            var x = GetPosition(transform).x + GetSize(transform).x * 0.5f;
             return x;
         }
     }

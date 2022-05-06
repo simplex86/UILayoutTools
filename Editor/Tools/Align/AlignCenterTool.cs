@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    class AlignCenterTool : LayoutBaseTool
+    class AlignCenterTool : AlignBaseTool
     {
         public override void Init()
         {
@@ -14,13 +14,11 @@ namespace SimpleX.Client.Editor.UGUI
         
         protected override void Apply()
         {
-            var x = indicator.localPosition.x;
+            var x = GetPosition(indicator).x;
             foreach (var t in selecteds)
             {
-                var p = t.localPosition;
                 var s = GetSize(t);
-
-                t.localPosition = new Vector3(x, p.y, p.z);
+                SetPositionX(t, x);
             }
         }
     }

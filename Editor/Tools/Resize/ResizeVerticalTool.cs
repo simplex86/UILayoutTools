@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    class ResizeVerticalTool : LayoutBaseTool
+    class ResizeVerticalTool : ResizeBaseTool
     {
         public override void Init()
         {

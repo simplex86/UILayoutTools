@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    class CloseTool : LayoutBaseTool
+    class CloseTool : MiscBaseTool
     {
         private UILayoutToolbar toolbar = null;
 
@@ -20,16 +20,6 @@ namespace SimpleX.Client.Editor.UGUI
         protected override bool Check()
         {
             return true;
-        }
-
-        protected virtual void BeginUndo()
-        {
-            
-        }
-
-        protected virtual void EndUndo()
-        {
-            
         }
 
         protected override void Apply()

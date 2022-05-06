@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    class AlignBottomTool : LayoutBaseTool
+    class AlignBottomTool : AlignBaseTool
     {
         public override void Init()
         {
@@ -17,10 +17,9 @@ namespace SimpleX.Client.Editor.UGUI
             var y = GetBottomY(indicator);
             foreach (var t in selecteds)
             {
-                var p = t.localPosition;
+                var p = GetPosition(t);
                 var s = GetSize(t);
-
-                t.localPosition = new Vector3(p.x, y + s.y * 0.5f, p.z);
+                SetPositionY(t, y + s.y * 0.5f);
             }
         }
 
@@ -44,7 +43,7 @@ namespace SimpleX.Client.Editor.UGUI
 
         private float GetBottomY(RectTransform transform)
         {
-            var y = transform.localPosition.y - GetSize(transform).y * 0.5f;
+            var y = GetPosition(transform).y - GetSize(transform).y * 0.5f;
             return y;
         }
     }

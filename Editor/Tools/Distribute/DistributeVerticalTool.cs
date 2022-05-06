@@ -21,7 +21,7 @@ namespace SimpleX.Client.Editor.UGUI
         protected override void Apply()
         {
             var s = GetSize(indicator);
-            var y = indicator.localPosition.y;
+            var y = GetPosition(indicator).y;
 
             foreach (var t in selecteds)
             {
@@ -33,8 +33,7 @@ namespace SimpleX.Client.Editor.UGUI
                     s = GetSize(t);
                     y -= s.y * 0.5f;
 
-                    var p = t.localPosition;
-                    t.localPosition = new Vector3(p.x, y, p.z);
+                    SetPositionY(t, y);
                 }
             }
         }
@@ -42,14 +41,14 @@ namespace SimpleX.Client.Editor.UGUI
         protected override RectTransform FilterIndicatorTransform()
         {
             var transform = selecteds[0];
-            var y = transform.localPosition.y;
+            var y = GetPosition(transform).y;
 
             for (int i=1; i<selecteds.Count; i++)
             {
                 if (selecteds[i].localPosition.y > y)
                 {
                     transform = selecteds[i];
-                    y = transform.localPosition.y;
+                    y = GetPosition(transform).y;
                 }
             }
 

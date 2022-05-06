@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace SimpleX.Client.Editor.UGUI
 {
-    class AlignMiddleTool : LayoutBaseTool
+    class AlignMiddleTool : AlignBaseTool
     {
         public override void Init()
         {
@@ -12,15 +12,13 @@ namespace SimpleX.Client.Editor.UGUI
             undoName = "align middle";
         }
 
-        protected override void Apply()
+        protected override async void Apply()
         {
-            var y = selecteds[0].localPosition.y;
+            var y = GetPosition(indicator).y;
             foreach (var t in selecteds)
             {
-                var p = t.localPosition;
                 var s = GetSize(t);
-
-                t.localPosition = new Vector3(p.x, y, p.z);
+                SetPositionY(t, y);
             }
         }
     }

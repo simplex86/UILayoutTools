@@ -20,16 +20,14 @@ namespace SimpleX.Client.Editor.UGUI
         
         protected override void Apply()
         {
-            var x = indicator.localPosition.x;
+            var x = GetPosition(indicator).x;
 
             foreach (var t in selecteds)
             {
                 if (t != indicator)
                 {
                     x += interval;
-
-                    var p = t.localPosition;
-                    t.localPosition = new Vector3(x, p.y, p.z);
+                    SetPositionX(t, x);
                 }
             }
         }
@@ -37,14 +35,14 @@ namespace SimpleX.Client.Editor.UGUI
         protected override RectTransform FilterIndicatorTransform()
         {
             var transform = selecteds[0];
-            var x = transform.localPosition.x;
+            var x = GetPosition(transform).x;
 
             for (int i=1; i<selecteds.Count; i++)
             {
-                if (selecteds[i].localPosition.x < x)
+                if (GetPosition(selecteds[i]).x < x)
                 {
                     transform = selecteds[i];
-                    x = transform.localPosition.x;
+                    x = GetPosition(transform).x;
                 }
             }
 

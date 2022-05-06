@@ -23,6 +23,13 @@ namespace SimpleX.Client.Editor.UGUI
         {
             if (GUILayout.Button(icon, GUILayout.Width(BUTTON_WIDTH), GUILayout.Height(BUTTON_HEIGHT)))
             {
+                OnClick();
+            }
+        }
+
+        // 点击响应
+        protected virtual void OnClick()
+        {
                 FilterSelectedTransforms();
                 if (Check())
                 {
@@ -31,7 +38,6 @@ namespace SimpleX.Client.Editor.UGUI
                     EndUndo();
                 }
                 ClearSelectedTransforms();
-            }
         }
 
         // 检测是否满足执行条件
@@ -85,35 +91,16 @@ namespace SimpleX.Client.Editor.UGUI
             return selecteds[0];
         }
 
+        // 获取坐标
+        protected Vector3 GetPosition(RectTransform transform)
+        {
+            return transform.localPosition;
+        }
+
         // 获取大小
         protected Vector2 GetSize(RectTransform transform)
         {
             return transform.rect.size;
-        }
-
-        // 设置宽度
-        protected void SetWidth(RectTransform transform, float width)
-        {
-            transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
-        }
-
-        // 设置高度
-        protected void SetHeight(RectTransform transform, float height)
-        {
-            transform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
-        }
-
-        // 设置大小
-        protected void SetSize(RectTransform transform, Vector2 size)
-        {
-            SetSize(transform, size.x, size.y);
-        }
-
-        // 设置大小
-        protected void SetSize(RectTransform transform, float width, float height)
-        {
-            SetWidth(transform, width);
-            SetHeight(transform, height);
         }
     }
 }
