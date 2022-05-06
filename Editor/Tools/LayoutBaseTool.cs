@@ -67,7 +67,9 @@ namespace SimpleX.Client.Editor.UGUI
         {
             ClearSelectedTransforms();
 
-            foreach (var go in Selection.gameObjects)
+            // var gameobjects = Selection.gameObjects;
+            var gameobjects = Selection.GetFiltered(typeof(GameObject), SelectionMode.Editable | SelectionMode.TopLevel);
+            foreach (GameObject go in gameobjects)
             {
                 // 不在hierarchy窗口中
                 if (EditorUtility.IsPersistent(go)) continue;
