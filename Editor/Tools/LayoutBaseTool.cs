@@ -69,6 +69,12 @@ namespace SimpleX.Client.Editor.UGUI
 
             foreach (var go in Selection.gameObjects)
             {
+                // 不在hierarchy窗口中
+                if (EditorUtility.IsPersistent(go)) continue;
+                // 在project窗口中（脚本文件等会漏过IsPersistent的判断）
+                var assetpath = AssetDatabase.GetAssetPath(go);
+                if (!string.IsNullOrEmpty(assetpath)) continue;
+
                 var rt = go.transform as RectTransform;
                 if (rt != null)
                 {
