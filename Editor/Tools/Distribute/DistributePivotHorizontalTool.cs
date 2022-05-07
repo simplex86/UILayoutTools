@@ -22,7 +22,7 @@ namespace SimpleX.Client.Editor.UGUI
         {
             var x = GetPosition(indicator).x;
 
-            foreach (var t in selecteds)
+            foreach (var t in selections)
             {
                 if (t != indicator)
                 {
@@ -32,21 +32,21 @@ namespace SimpleX.Client.Editor.UGUI
             }
         }
 
-        protected override RectTransform FilterIndicatorTransform()
-        {
-            var transform = selecteds[0];
-            var x = GetPosition(transform).x;
+        // protected override RectTransform FilterIndicatorTransform()
+        // {
+        //     var transform = selecteds[0];
+        //     var x = GetPosition(transform).x;
 
-            for (int i=1; i<selecteds.Count; i++)
-            {
-                if (GetPosition(selecteds[i]).x < x)
-                {
-                    transform = selecteds[i];
-                    x = GetPosition(transform).x;
-                }
-            }
+        //     for (int i=1; i<selecteds.Count; i++)
+        //     {
+        //         if (GetPosition(selecteds[i]).x < x)
+        //         {
+        //             transform = selecteds[i];
+        //             x = GetPosition(transform).x;
+        //         }
+        //     }
 
-            return transform;
-        }
+        //     return transform;
+        // }
     }
 }

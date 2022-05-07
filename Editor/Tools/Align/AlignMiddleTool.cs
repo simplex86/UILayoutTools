@@ -15,7 +15,7 @@ namespace SimpleX.Client.Editor.UGUI
         protected override async void Apply()
         {
             var y = GetPosition(indicator).y;
-            foreach (var t in selecteds)
+            foreach (var t in selections)
             {
                 var s = GetSize(t);
                 SetPositionY(t, y);

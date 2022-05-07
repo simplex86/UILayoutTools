@@ -8,8 +8,8 @@ namespace SimpleX.Client.Editor.UGUI
     {
         public Texture icon { get; protected set; }
 
-        protected List<RectTransform> selecteds { get; } = new List<RectTransform>();
-        protected RectTransform indicator { get; private set; }
+        protected List<RectTransform> selections { get { return LayoutToolData.Instance.selections; } }
+        protected RectTransform indicator { get { return LayoutToolData.Instance.indicator; } }
         protected string undoName = string.Empty;
 
         protected const int BUTTON_WIDTH = 24;
@@ -30,25 +30,27 @@ namespace SimpleX.Client.Editor.UGUI
         // 点击响应
         protected virtual void OnClick()
         {
-                FilterSelectedTransforms();
+                // FilterSelectedTransforms();
                 if (Check())
                 {
                     BeginUndo();
                     Apply();
                     EndUndo();
                 }
-                ClearSelectedTransforms();
+                // ClearSelectedTransforms();
         }
 
         // 检测是否满足执行条件
         protected virtual bool Check()
         {
-            return selecteds.Count > 1 && indicator != null;
+            return selections.Count > 1 && indicator != null;
         }
 
         protected virtual void BeginUndo()
         {
-            foreach (var o in selecteds)
+            var selections = LayoutToolData.Instance.selections;
+
+            foreach (var o in selections)
             {
                 Undo.RecordObject(o, undoName);
             }
@@ -63,41 +65,41 @@ namespace SimpleX.Client.Editor.UGUI
         protected abstract void Apply();
 
         // 筛选被选中的RectTransform
-        protected void FilterSelectedTransforms()
-        {
-            ClearSelectedTransforms();
+        // protected void FilterSelectedTransforms()
+        // {
+        //     ClearSelectedTransforms();
 
-            // var gameobjects = Selection.gameObjects;
-            var gameobjects = Selection.GetFiltered(typeof(GameObject), SelectionMode.Editable | SelectionMode.TopLevel);
-            foreach (GameObject go in gameobjects)
-            {
-                // 不在hierarchy窗口中
-                if (EditorUtility.IsPersistent(go)) continue;
-                // 在project窗口中（脚本文件等会漏过IsPersistent的判断）
-                var assetpath = AssetDatabase.GetAssetPath(go);
-                if (!string.IsNullOrEmpty(assetpath)) continue;
+        //     // var gameobjects = Selection.gameObjects;
+        //     var gameobjects = Selection.GetFiltered(typeof(GameObject), SelectionMode.Editable | SelectionMode.TopLevel);
+        //     foreach (GameObject go in gameobjects)
+        //     {
+        //         // 不在hierarchy窗口中
+        //         if (EditorUtility.IsPersistent(go)) continue;
+        //         // 在project窗口中（脚本文件等会漏过IsPersistent的判断）
+        //         var assetpath = AssetDatabase.GetAssetPath(go);
+        //         if (!string.IsNullOrEmpty(assetpath)) continue;
 
-                var rt = go.transform as RectTransform;
-                if (rt != null)
-                {
-                    selecteds.Add(rt);
-                }
-            }
-            indicator = (selecteds.Count == 0) ? null : FilterIndicatorTransform();
-        }
+        //         var rt = go.transform as RectTransform;
+        //         if (rt != null)
+        //         {
+        //             selecteds.Add(rt);
+        //         }
+        //     }
+        //     indicator = (selecteds.Count == 0) ? null : FilterIndicatorTransform();
+        // }
 
-        // 清除被选中的Transform数据
-        protected void ClearSelectedTransforms()
-        {
-            indicator = null;
-            selecteds.Clear();
-        }
+        // // 清除被选中的Transform数据
+        // protected void ClearSelectedTransforms()
+        // {
+        //     indicator = null;
+        //     selecteds.Clear();
+        // }
 
         // 筛选参照物，默认是选中列表的第一个
-        protected virtual RectTransform FilterIndicatorTransform()
-        {
-            return selecteds[0];
-        }
+        // protected virtual RectTransform FilterIndicatorTransform()
+        // {
+        //     return selecteds[0];
+        // }
 
         // 获取坐标
         protected Vector3 GetPosition(RectTransform transform)

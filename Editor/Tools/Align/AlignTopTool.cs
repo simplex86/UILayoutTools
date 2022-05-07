@@ -15,7 +15,7 @@ namespace SimpleX.Client.Editor.UGUI
         protected override async void Apply()
         {
             var y = GetTopY(indicator);
-            foreach (var t in selecteds)
+            foreach (var t in selections)
             {
                 var p = GetPosition(t);
                 var s = GetSize(t);
@@ -23,24 +23,23 @@ namespace SimpleX.Client.Editor.UGUI
             }
         }
 
-        protected override RectTransform FilterIndicatorTransform()
-        {
-            var transform = selecteds[0];
-            var maxy = GetTopY(transform);
+        // protected override RectTransform FilterIndicatorTransform()
+        // {
+        //     var transform = selecteds[0];
+        //     var maxy = GetTopY(transform);
             
-            for (int i=1; i<selecteds.Count; i++)
-            {
-                var y = GetTopY(selecteds[i]);
-                if (y > maxy)
-                {
-                    maxy = y;
-                    transform = selecteds[i]; 
-                }
-            }
+        //     for (int i=1; i<selecteds.Count; i++)
+        //     {
+        //         var y = GetTopY(selecteds[i]);
+        //         if (y > maxy)
+        //         {
+        //             maxy = y;
+        //             transform = selecteds[i]; 
+        //         }
+        //     }
 
-            return transform;
-        }
-
+        //     return transform;
+        // }
 
         private float GetTopY(RectTransform transform)
         {

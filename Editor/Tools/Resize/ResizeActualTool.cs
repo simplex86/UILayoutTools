@@ -14,7 +14,7 @@ namespace SimpleX.Client.Editor.UGUI
         protected override void Apply()
         {
             var size = GetSize(indicator);
-            foreach (var t in selecteds)
+            foreach (var t in selections)
             {
                 SetSize(t, size);
             }

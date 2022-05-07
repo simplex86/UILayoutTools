@@ -17,7 +17,7 @@ namespace SimpleX.Client.Editor.UGUI
         // 
         protected override void OnClick()
         {
-            FilterSelectedTransforms();
+            // FilterSelectedTransforms();
             if (Check())
             {
                 PopupWindow.Show(new Rect(px, 34, 1, 1), new DistributePanel((interval) => {
@@ -28,7 +28,7 @@ namespace SimpleX.Client.Editor.UGUI
                     EndUndo();
                 }));
             }
-            ClearSelectedTransforms();
+            // ClearSelectedTransforms();
         }
 
         protected void SetPosition(RectTransform transform, Vector3 pos)

@@ -37,12 +37,15 @@ namespace SimpleX.Client.Editor.UGUI
                 tool.Init();
             }
 
+            LayoutToolData.Instance.Init();
+
             SceneView.duringSceneGui -= DuringSceneGui;
             SceneView.duringSceneGui += DuringSceneGui;
         }
 
         public void Close()
         {
+            LayoutToolData.Instance.Dispose();
             SceneView.duringSceneGui -= DuringSceneGui;
         }
 
