@@ -7,8 +7,8 @@ namespace SimpleX.Client.Editor.UGUI
     class LayoutToolData
     {
         public RectTransform indicator { get; private set; }
-        private List<RectTransform> mSelections = new List<RectTransform>();
 
+        private List<RectTransform> mSelections = new List<RectTransform>();
         public List<RectTransform> selections
         {
             get
@@ -50,11 +50,10 @@ namespace SimpleX.Client.Editor.UGUI
         private void OnSelectionChangedHandler()
         {
             List<RectTransform> list = FilterSelectedTransforms();
-            if (list.Count == 1)
-            {
-                ClearSelectedTransforms();
-                indicator = list[0];
-            }
+            if (list.Count > 1) return;
+
+            ClearSelectedTransforms();
+            if (list.Count == 1) indicator = list[0];
         }
 
         private List<RectTransform> FilterSelectedTransforms()
@@ -71,10 +70,7 @@ namespace SimpleX.Client.Editor.UGUI
                 if (!string.IsNullOrEmpty(assetpath)) continue;
 
                 var rt = go.transform as RectTransform;
-                if (rt != null)
-                {
-                    list.Add(rt);
-                }
+                if (rt != null) list.Add(rt);
             }
 
             return list;
