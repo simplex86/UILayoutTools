@@ -20,33 +20,27 @@ namespace SimpleX.Client.Editor.UGUI
         
         protected override void Apply()
         {
-            var x = GetPosition(indicator).x;
+            SortX(selections);
 
-            foreach (var t in selections)
+            var k = GetIndex(indicator);
+            var p = GetPosition(indicator);
+
+            // 左
+            var x = p.x;
+            for (int i=k+1; i<selections.Count; i++)
             {
-                if (t != indicator)
-                {
-                    x += interval;
-                    SetPositionX(t, x);
-                }
+                var t = selections[i];
+                x += interval;
+                SetPositionX(t, x);
+            }
+            // 右
+            x = p.x;
+            for (int i=k-1; i>=0; i--)
+            {
+                var t = selections[i];
+                x -= interval;
+                SetPositionX(t, x);
             }
         }
-
-        // protected override RectTransform FilterIndicatorTransform()
-        // {
-        //     var transform = selecteds[0];
-        //     var x = GetPosition(transform).x;
-
-        //     for (int i=1; i<selecteds.Count; i++)
-        //     {
-        //         if (GetPosition(selecteds[i]).x < x)
-        //         {
-        //             transform = selecteds[i];
-        //             x = GetPosition(transform).x;
-        //         }
-        //     }
-
-        //     return transform;
-        // }
     }
 }

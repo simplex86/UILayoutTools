@@ -18,10 +18,7 @@ namespace SimpleX.Client.Editor.UGUI
                     List<RectTransform> list = FilterSelectedTransforms();
                     foreach (var rt in list)
                     {
-                        if (rt != indicator)
-                        {
-                            mSelections.Add(rt);
-                        }
+                        mSelections.Add(rt);
                     }
                 }
                 return mSelections;

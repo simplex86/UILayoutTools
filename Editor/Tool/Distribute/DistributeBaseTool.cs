@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -48,6 +49,37 @@ namespace SimpleX.Client.Editor.UGUI
             var pos = transform.localPosition;
             pos.y = y;
             transform.localPosition = pos;
+        }
+
+        protected void SortX(List<RectTransform> transforms)
+        {
+            transforms.Sort((a, b) => {
+                var ax = GetPosition(a).x;
+                var bx = GetPosition(b).x;
+
+                if (Math.Abs(ax - bx) < float.Epsilon) return 0;
+                return (ax > bx) ? 1 : -1;
+            });
+        }
+
+        protected void SortY(List<RectTransform> transforms)
+        {
+            transforms.Sort((a, b) => {
+                var ay = GetPosition(a).y;
+                var by = GetPosition(b).y;
+
+                if (Math.Abs(ay - by) < float.Epsilon) return 0;
+                return (ay > by) ? 1 : -1;
+            });
+        }
+
+        protected int GetIndex(RectTransform transform)
+        {
+            for (int i=0; i<selections.Count; i++)
+            {
+                if (selections[i] == transform) return i;
+            }
+            return -1;
         }
     }
 }
