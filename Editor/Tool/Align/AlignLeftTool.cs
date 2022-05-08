@@ -23,24 +23,6 @@ namespace SimpleX.Client.Editor.UGUI
             }
         }
 
-        // protected override RectTransform FilterIndicatorTransform()
-        // {
-        //     var transform = selecteds[0];
-        //     var minx = GetLeftX(transform);
-            
-        //     for (int i=1; i<selecteds.Count; i++)
-        //     {
-        //         var x = GetLeftX(selecteds[i]);
-        //         if (x < minx)
-        //         {
-        //             minx = x;
-        //             transform = selecteds[i]; 
-        //         }
-        //     }
-
-        //     return transform;
-        // }
-
         private float GetLeftX(RectTransform transform)
         {
             var x = GetPosition(transform).x - GetSize(transform).x * 0.5f;
